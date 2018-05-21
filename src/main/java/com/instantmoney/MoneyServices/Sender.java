@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Sender {
@@ -15,6 +17,10 @@ public class Sender {
 	private String s_first_name; 
 	private String s_last_name; 
 	private String slocation;
+	
+	@OneToOne 
+	@JoinColumn (name = "idsender")
+	private Balance balance;
 	
 	public int getIdsender() {
 		return idsender;
