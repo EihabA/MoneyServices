@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Exchange {
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue (strategy = GenerationType.AUTO) //added generation type AUTO
 	private int idexchange; 
 	
 	private String e_name;
