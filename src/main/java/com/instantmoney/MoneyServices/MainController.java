@@ -24,18 +24,28 @@ public class MainController {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
-		Sender s = new Sender();
-		s.setS_first_name(firstName);
-		s.setS_last_name(lastName);
-		s.setSlocation(slocation);
-		senderRepository.save(s);
-		return "Saved new Sender";
+		if (firstName !=null && lastName !=null && slocation !=null) 
+		{
+			Sender s = new Sender();
+			s.setS_first_name(firstName);
+			s.setS_last_name(lastName);
+			s.setSlocation(slocation);
+			senderRepository.save(s);
+			return "Saved new Sender";
+		}
+		else {
+			return new String ("FirstName, LastName and Location cannot be NULL");
+		}
+
 	}
 
 	@GetMapping(path = "/addExchange") 
 	public @ResponseBody String addNewExchange (@RequestParam String exchange)
 	{
-		if (exchange != null)
+		boolean hasNonAlphanumeric = exchange.matches("^.*[^a-zA-Z0-9].*$");
+		boolean justNumbers = exchange.matches("\\d+");
+		
+		if (exchange != null && exchange.trim().length()>0 && hasNonAlphanumeric == false && justNumbers ==false)
 		{
 		Exchange e = new Exchange(); 
 		e.setE_name(exchange);
@@ -43,13 +53,19 @@ public class MainController {
 		return "Saved Exchange";
 		} 
 		else {
-			return new String("exchange name can not be null!");
+			return new String("exchange name can not be null or empty!");
 		}
 	} 
 	
-	@GetMapping(path="/all")
+	@GetMapping(path="/allsenders")
 	public @ResponseBody Iterable<Sender> getAllSenders() {
 		// This returns a JSON or XML with the users
 		return senderRepository.findAll();
+	}
+		
+	@GetMapping(path="/allexchanges")
+	public @ResponseBody Iterable<Exchange> getAllExchanges() {
+			// This returns a JSON or XML with the users
+		return exchangeRepository.findAll();
 	}
 }

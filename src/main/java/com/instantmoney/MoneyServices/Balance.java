@@ -4,11 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-//import javax.persistence.EntityManager;
-//import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-//import javax.persistence.Persistence;
 
 @Entity
 public class Balance
@@ -32,9 +29,7 @@ public Balance(int id, BigDecimal startBalance)
 public Balance()
 {
 	
-}	
-	//EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-
+}
 	public int getIdsender() {
 		return idsender;
 	}
@@ -51,8 +46,6 @@ public Balance()
 	
 	public synchronized void Topup(BigDecimal amount)
 	{
-		//EntityManager em = emf.createEntityManager();
-        	    
 		if (balance!=null)
 		{
 		balance = balance.add(amount);
@@ -65,22 +58,11 @@ public Balance()
 		}
 		
 		setBalance(balance);
-	
-//		em.getTransaction().begin();
-//		
-//		em.createQuery("update Balance set balance = " +  balance + "where idsender=" + idsender)
-//	    .executeUpdate();
-//	    
-//		em.flush();
-//		em.getTransaction().commit();
-//		em.close();
 	}
 	
 	public synchronized void  withdraw(BigDecimal amount)  
 	{
 		System.out.println("Entering the withdraw method: ......." + amount);
-		
-		//EntityManager em = emf.createEntityManager();
 		
 		System.out.println(amount.compareTo(balance));
 		
@@ -104,16 +86,7 @@ public Balance()
 		setBalance(balance);
 		
 		System.out.println("balance after subtraction: " + balance);
-		
-//		em.getTransaction().begin();
-//		
-//		em.createQuery("update Balance set balance = " + balance + "where idsender=" + idsender)
-//	    .executeUpdate();
-//		
-//		em.flush();
-//			
-//		em.getTransaction().commit();
-//		em.close();
+
 	}
 	
 	@Override
